@@ -13,6 +13,10 @@ Those manifests are needed to enable:
     ```
 
 ## Results
+I could login and access the Notebooks web app and send a create notebook request using
+```shell
+kubectl -n istio-system port-forward svc/ambient-ingressgateway-istio 8080:80
+```
 For more information on the final authorization setup, refer to https://github.com/canonical/bundle-kubeflow/issues/1285#issuecomment-3036555144.
 
 ### mTLS: strict
