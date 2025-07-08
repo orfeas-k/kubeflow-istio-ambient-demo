@@ -16,5 +16,4 @@ resources:
   - oauth2-proxy-hr.yaml
   - profiles-ap-l4-waypoint.yaml
   - profiles-ap-l7-centraldashboard.yaml
-  - strict-pa-kubeflow.yaml
   - waypointclass-allow-nothing-ap.yaml

@@ -1,0 +1,6 @@
+$patch: delete
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: centraldashboard-ap-l7-ingressgateway
+  namespace: kubeflow
