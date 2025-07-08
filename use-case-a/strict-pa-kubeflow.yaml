@@ -1,0 +1,9 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: strict-pa-kubeflow
+  namespace: kubeflow
+spec:
+  mtls:
+    mode: STRICT
+

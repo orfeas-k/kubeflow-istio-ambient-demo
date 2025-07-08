@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: kubeflow-waypoint
+  namespace: kubeflow
+  labels:
+    istio.io/waypoint-for: service # Both traffic to service and pods go through the waypoint. Default is services.
+spec:
+  gatewayClassName: istio-waypoint  # <- Important!
+  listeners:
+    - name: mesh
+      port: 15008
+      protocol: HBONE
+      allowedRoutes:
+        namespaces:
+          from: All

@@ -1,0 +1,22 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ambient-ingressgateway-require-jwt
+  namespace: istio-system
+spec:
+  action: DENY
+  targetRefs:
+  - kind: Gateway
+    group: gateway.networking.k8s.io
+    name: ambient-ingressgateway
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals:
+        - '*'
+    to:
+    - operation:
+        notPaths:
+        - /dex/*
+        - /dex/**
+        - /oauth2/*

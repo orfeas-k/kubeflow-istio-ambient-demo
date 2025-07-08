@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: profiles-kfam-l7-cd
+  namespace: kubeflow
+spec:
+  action: ALLOW
+  targetRefs:
+  - kind: Service
+    name: profiles-kfam
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/kubeflow/sa/centraldashboard

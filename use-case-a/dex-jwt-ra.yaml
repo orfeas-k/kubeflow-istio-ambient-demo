@@ -1,0 +1,21 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: dex-jwt
+  namespace: istio-system
+spec:
+  targetRefs:
+  - kind: Gateway
+    group: gateway.networking.k8s.io
+    name: ambient-ingressgateway
+  jwtRules:
+  - forwardOriginalToken: true
+    fromHeaders:
+    - name: Authorization
+      prefix: 'Bearer '
+    issuer: http://dex.auth.svc.cluster.local:5556/dex
+    outputClaimToHeaders:
+    - claim: email
+      header: kubeflow-userid
+    - claim: groups
+      header: kubeflow-groups

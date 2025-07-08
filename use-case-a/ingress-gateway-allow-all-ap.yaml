@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ambient-ingressgateway
+  namespace: istio-system
+spec:
+  action: ALLOW
+  rules:
+  - {}
+  selector:
+    matchLabels:
+      app: ambient-ingressgateway
+      gateway.networking.k8s.io/gateway-name: ambient-ingressgateway

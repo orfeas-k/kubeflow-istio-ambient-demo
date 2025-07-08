@@ -1,0 +1,10 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: waypoint-allow-nothing
+  namespace: istio-system
+spec:
+  targetRefs:
+  - kind: GatewayClass
+    group: gateway.networking.k8s.io
+    name: istio-waypoint

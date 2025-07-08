@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jupyter-web-app
+  namespace: kubeflow
+spec:
+  parentRefs:
+  - name: ambient-ingressgateway   # Gateway name, must exist in same or another namespace
+    namespace: istio-system        # If gateway is in another namespace, must specify this
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /jupyter/
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /
+    backendRefs:
+    - name: jupyter-web-app-service         # must match a service in kubeflow namespace
+      port: 80

@@ -1,0 +1,24 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ambient-ingressgateway-oauth2-proxy
+  namespace: istio-system
+spec:
+  targetRefs:
+  - kind: Gateway
+    group: gateway.networking.k8s.io
+    name: ambient-ingressgateway
+  action: CUSTOM
+  provider:
+    name: oauth2-proxy
+  rules:
+  - to:
+    - operation:
+        notPaths:
+        - /dex/*
+        - /dex/**
+        - /oauth2/*
+    when:
+    - key: request.headers[authorization]
+      notValues:
+      - '*'
