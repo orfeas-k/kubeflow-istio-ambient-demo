@@ -19,21 +19,4 @@ For more information on the final authorization setup, refer to https://github.c
 The file `strict-pa-kubeflow.yaml` is not needed. It was applied to test the setup's compatibility with strict mTLS mode. That's why this is not included in the `kustomization.yaml` file.
 
 ### ingress-use-waypoint
-This assumes the use of `ingress-use-waypoint` label. If this is disabled, there needs to be an L4 policy for the centraldashboard and the jupyter-web-app to allow Ztunnel requests from the centraldashboard
-```
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: centraldashboard-l4-ingressgateway
-  namespace: kubeflow
-spec:
-  action: ALLOW
-  rules:
-  - from:
-    - source:
-        principals:
-        - cluster.local/ns/istio-system/sa/ambient-ingressgateway-istio
-  selector:
-    matchLabels:
-      app: centraldashboard
-```
+This assumes the use of the `ingress-use-waypoint` label. For a setup without that label, see the [overlay-without-ingress-use-gateway](./overlay-without-ingress-use-gateway) directory. Note that it is not a proper overlay that can be used with `kustomize`.
