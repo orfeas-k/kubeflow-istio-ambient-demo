@@ -10,7 +10,11 @@ This documents how to start from a clean setup in order to work on integrating K
         gateways.gateway.networking.k8s.io &> /dev/null \
         || kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/standard-install.yaml
     ```
-1. Install Kubeflow from this branch https://github.com/orfeas-k/kf-manifests/tree/integrate-istio-ambient-mesh-1.10.1-istio-1.26.2?tab=readme-ov-file#install-with-a-single-command. For more information on how those manifests were generated/modified, refer to the [Manifests Configuration](#manifests-configuration) section below.
+1. Install the Kubeflow example from this branch https://github.com/orfeas-k/kf-manifests/tree/integrate-istio-ambient-mesh-1.10.1-istio-1.26.2.
+    ```
+    while ! kustomize build example | kubectl apply --server-side --force-conflicts -f -; do echo "Retrying to apply resources"; sleep 20; done
+    ```
+    For more information on how those manifests were generated/modified, refer to the [Manifests Configuration](#manifests-configuration) section below.
 1. Remove previous authorization-related istio resources:
     ```shell
     kubectl -n kubeflow delete authorizationpolicies.security.istio.io --all
@@ -27,7 +31,7 @@ This documents how to start from a clean setup in order to work on integrating K
 
 Note that this assumes a working k8s cluster. 
 
-## Manifests configuration
+### Manifests configuration
 In order to manually generate the manifests provided at the [orfeas-k/kf-manifests/integrate-istio-ambient-mesh-1.10.1-istio-1.26.2](https://github.com/orfeas-k/kf-manifests/tree/integrate-istio-ambient-mesh-1.10.1-istio-1.26.2?tab=readme-ov-file#install-with-a-single-command) branch:
 1. Install istioctl
 	```shell
