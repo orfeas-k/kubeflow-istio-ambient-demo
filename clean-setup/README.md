@@ -19,10 +19,12 @@ This documents how to start from a clean setup in order to work on integrating K
     ```shell
     kubectl -n kubeflow delete authorizationpolicies.security.istio.io --all
     kubectl -n istio-system delete authorizationpolicies.security.istio.io --all
-    kubectl -n kubeflow delete networkpolicies.networking.k8s.io --all
     kubectl -n knative-serving delete authorizationpolicies.security.istio.io --all
 
-    # you should not need to remove those, but if there are any
+    kubectl -n kubeflow delete networkpolicies.networking.k8s.io --all
+
+    kubectl -n istio-system delete requestauthentications.security.istio.io --all
+
     kubectl -n kubeflow delete gateways.networking.istio.io --all 
     kubectl -n istio-system delete gateways.networking.istio.io --all 
     kubectl -n knative-serving delete gateways.networking.istio.io --all 
