@@ -1,19 +1,16 @@
 resources:
-  - centraldashboard-ap-l4-waypoint.yaml
-  - centraldashboard-ap-l7-ingressgateway.yaml
+  - centraldashboard-ap-l4-ingressgateway.yaml
   - centraldashboard-hr.yaml
   - dex-hr.yaml
-  - dex-jwt-ra.yaml
   - global-allow-nothing.yaml
   - ingress-gateway-allow-all-ap.yaml
   - ingress-gateway-ap-oauth2-proxy.yaml
   - ingress-gateway-ap-require-jwt.yaml
+  - ingress-gateway-ra-dex-jwt.yaml
   - ingress-k8s-gateway.yaml
-  - jwa-ap-l4-waypoint.yaml
-  - jwa-ap-l7-ingressgateway.yaml
+  - jwa-ap-l4-ingressgateway.yaml
   - jwa-hr.yaml
   - kubeflow-waypoint.yaml
   - oauth2-proxy-hr.yaml
-  - profiles-ap-l4-waypoint.yaml
-  - profiles-ap-l7-centraldashboard.yaml
+  - profiles-ap-l4-cd.yaml
   - waypointclass-allow-nothing-ap.yaml
