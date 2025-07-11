@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  labels:
+    app.kubernetes.io/component: ml-pipeline
+    app.kubernetes.io/name: kubeflow-pipelines
+    application-crd-id: kubeflow-pipelines
+  name: ml-pipeline-ui
+  namespace: kubeflow
+spec:
+  parentRefs:
+  - name: ambient-ingressgateway   # Gateway name, must exist in same or another namespace
+    namespace: istio-system        # If gateway is in another namespace, must specify this
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /pipeline
+    backendRefs:
+    - name: ml-pipeline-ui         # must match a service in kubeflow namespace
+      port: 80
+    timeouts:
+      request: 300s
