@@ -1,0 +1,7 @@
+resources:
+- centraldashboard-ap-l4-waypoint.yaml
+- centraldashboard-ap-l7-ingressgateway.yaml
+- jwa-ap-l4-waypoint.yaml
+- jwa-ap-l7-ingressgateway.yaml
+- profiles-ap-l4-waypoint.yaml
+- profiles-ap-l7-centraldashboard.yaml
