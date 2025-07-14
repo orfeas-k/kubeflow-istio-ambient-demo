@@ -2,7 +2,12 @@
 
 Those manifests are needed to enable:
 1. Log in flow through the UI.
+![alt text](./img/image.png)
 2. Access a web application through the UI (jupyter-web-app) in this case.
+![alt text](./img/image-1.png)
+
+> [!NOTE]
+> The diagrams are used to indicate the request flow and do not correspond exactly to the manifests from this repo. Those include the resources used in sidecar mode.
 
 ## Requirements
 1. A [clean setup](../clean-setup/).
