@@ -1,0 +1,20 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ns-l7-allow-k8s-token
+  namespace: kubeflow-user-example-com
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/istio-system/sa/ambient-ingressgateway-istio
+    when:
+    - key: request.headers[kubeflow-userid]
+      values:
+      - system:serviceaccount:kubeflow-user-example-com:default-editor
+  targetRefs:
+  - name: waypoint # Name of the waypoint resource created from user-waypoint.yaml.
+    kind: Gateway
+    group: gateway.networking.k8s.io

@@ -1,0 +1,43 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: notebook-tet
+  namespace: kubeflow-user-example-com
+spec:
+  parentRefs:
+  - name: ambient-ingressgateway   # Gateway name, must exist in same or another namespace
+    namespace: istio-system        # If gateway is in another namespace, must specify this
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /notebook/kubeflow-user-example-com/tet/
+    backendRefs:
+    - name: tet         # must match a service in the same namespace
+      port: 80
+# from original
+# apiVersion: networking.istio.io/v1
+# kind: VirtualService
+# metadata:
+#   name: notebook-kubeflow-user-example-com-tet
+#   namespace: kubeflow-user-example-com
+# spec:
+#   gateways:
+#   - kubeflow/kubeflow-gateway
+#   hosts:
+#   - '*'
+#   http:
+#   - headers:
+#       request:
+#         set: {}
+#     match:
+#     - uri:
+#         prefix: /notebook/kubeflow-user-example-com/tet/
+#     rewrite:
+#       uri: /notebook/kubeflow-user-example-com/tet/
+#     route:
+#     - destination:
+#         host: tet.kubeflow-user-example-com.svc.cluster.local
+#         port:
+#           number: 80
+
