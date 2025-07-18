@@ -1,0 +1,10 @@
+resources:
+  - ingress-gateway-ra-m2m-token-issuer.yaml
+  - jwks-proxy-manifests.yaml
+  - kserve-controller-ap-allow-all.yaml
+  - ml-pipeline-visualization-ap-l7-ml-pipeline.yaml
+  # - notebook-tet-hr.yaml # commnented out since it should be applied if the notebook is created
+  - ns-ap-l4-waypoint.yaml
+  - ns-ap-l7-allow-k8s-token.yaml
+  - ns-owner-access-istio-ap-l7-waypoint.yaml
+  - user-waypoint.yaml

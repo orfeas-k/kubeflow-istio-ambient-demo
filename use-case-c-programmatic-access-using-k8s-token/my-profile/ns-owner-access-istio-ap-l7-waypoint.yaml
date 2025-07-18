@@ -1,0 +1,41 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ns-owner-access-istio-l7-allow
+  namespace: my-profile
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/istio-system/sa/ambient-ingressgateway-istio
+        - cluster.local/ns/kubeflow/sa/ml-pipeline-ui
+    when:
+    - key: request.headers[kubeflow-userid]
+      values:
+      - user@example.com
+  - when:
+    - key: source.namespace
+      values:
+      - my-profile
+  - to:
+    - operation:
+        paths:
+        - /healthz
+        - /metrics
+        - /wait-for-drain
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/kubeflow/sa/notebook-controller-service-account
+    to:
+    - operation:
+        methods:
+        - GET
+        paths:
+        - '*/api/kernels'
+  targetRefs:
+  - name: waypoint # Name of the waypoint resource created from user-waypoint.yaml.
+    kind: Gateway
+    group: gateway.networking.k8s.io
