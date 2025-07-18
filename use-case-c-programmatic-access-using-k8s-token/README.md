@@ -244,6 +244,8 @@ The `ns-owner-access-istio-ap-l7-waypoint.yaml` is the standard created in 1.10.
 ### Enabling k8s token authorization
 Since during the cluster setup, the example used didn't include manifests for authorization using a k8s token, those are being applied as part of this use case. This incldues the `jwks-proxy-manifests.yaml` alongside the RequestAuthentication needed to validate those tokens (`ingress-gateway-ra-m2m-token-issuer.yaml`). The requestAuthentication was migrated to ambient mode (being attached to the IngressGateway).
 
+The `cluster-jwks-proxy` is a deployment introduced in https://github.com/kubeflow/manifests/pull/2864 to resolve https://github.com/kubeflow/manifests/issues/2850. Note that this is does not work for all k8s substrates and a substrate-specific setup could be needed. This targets Kind-like substrates and has been tested on Microk8s. Since this goes hand-in-hand with the RequestAuthentication, both could need to be updated to support other k8s substrates.
+
 ### KServe controller allow all
 KServe-controller has a webhook container that similarly to admission-webhook and katib-controller need to be contacted by kubernetes API. Kserve-controller was previously off-mesh allowing all requests. Since, kserve-controller is now in-mesh, an L4 allow all policy is applied (`kserve-controller-ap-allow-all.yaml`).
 
