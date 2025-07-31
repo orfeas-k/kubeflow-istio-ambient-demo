@@ -6,5 +6,7 @@ A PoC can be deployed using instructions in the repo. Due to the missing changes
 
 1. clean-setup
 2. use-case-a
+    1. User login flow
+    2. Web application access through the UI
 3. use-case-b
 4. use-case-c

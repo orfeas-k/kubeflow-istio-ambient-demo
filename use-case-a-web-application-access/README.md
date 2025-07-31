@@ -1,10 +1,11 @@
 # Use case a - Web application access through the UI
 
 Those manifests are needed to enable:
-1. Log in flow through the UI.
+1. Log in flow through the UI. All ingress traffic directed to Kubeflow goes through the an ingress gateway deployment.
 ![alt text](./img/image.png)
 2. Access a web application through the UI (jupyter-web-app) in this case.
 ![alt text](./img/image-1.png)
+In this scenario, a user attempts to access Kubeflow from their browser. More specifically, they target the Jupyter web app URL which is found under the /jupyter path. The Jupyter Web app component relies on the value of the kubeflow-userid header and requests from the API only the data that the user is authorized to access. This works since all the web applications (apart from KFP UI) are exposed only via the IngressGateway and no other component is authorized to reach them.
 
 > [!NOTE]
 > The diagrams are used to indicate the request flow and do not correspond exactly to the manifests from this repo. Those include the resources used in sidecar mode.
