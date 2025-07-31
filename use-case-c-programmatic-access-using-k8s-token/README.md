@@ -2,8 +2,13 @@
 This use case enables programmatic access from outside the cluster to:
 1. KFP api (via KFP UI)
 ![alt text](./img/image.png)
+In this scenario, a user outside the cluster tries to access the KFP api server through the external IngressGateway, using a k8s token they obtained previously. The same exact flow is possible with a Dex token as well, with the difference that Istio uses the JWKs fetched from Dex. Here, the KFP api server can process the JWT and thus provide only data that the user is authorized to access.
 2. user workloads
 ![alt text](./img/image-1.png)
+In this scenario, a user outside the cluster tries to query the KServe Inference Service (ISVC) for a prediction. This scenario is exactly the same as the previous one. The only difference here is that the request targets a user workload and authorization is restricted only by the AP, rather than the component’s ability to interpret headers.
+Note that:
+    1. The ISVC is deployed in RawDeployment mode.
+    1. The AuthorizationPolicy that configures the namespace isn’t available by default in a Kubeflow cluster but needs to be added manually.
 
 With those manifests, we also confirm the following use cases:
 1. (some) KFP components allow all requests
@@ -11,6 +16,8 @@ With those manifests, we also confirm the following use cases:
 2. Services in the user namespace accept requests from:
     1. Everyone in the same namespace
     2. IngressGateway and KFP-UI with specific headers.
+    3. Notebook controller to specific paths
+    4. Anyone to specific paths (e.g. Prometheus)
 
 > [!NOTE]
 > These diagrams are used to indicate the request flow and do not correspond exactly to the manifests from this repo. They include the resources used in sidecar mode.
