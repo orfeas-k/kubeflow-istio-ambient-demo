@@ -1,0 +1,33 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: m2m-token-issuer
+  namespace: istio-system
+spec:
+  jwtRules:
+  - forwardOriginalToken: true
+    fromHeaders:
+    - name: Authorization
+      prefix: 'Bearer '
+    issuer: https://kubernetes.default.svc.cluster.local
+    jwksUri: http://cluster-jwks-proxy.istio-system.svc.cluster.local/openid/v1/jwks
+    outputClaimToHeaders:
+    - claim: sub
+      header: kubeflow-userid
+    - claim: groups
+      header: kubeflow-groups
+  - forwardOriginalToken: true
+    fromHeaders:
+    - name: Authorization
+      prefix: 'Bearer '
+    issuer: https://kubernetes.default.svc
+    jwksUri: http://cluster-jwks-proxy.istio-system.svc.cluster.local/openid/v1/jwks
+    outputClaimToHeaders:
+    - claim: sub
+      header: kubeflow-userid
+    - claim: groups
+      header: kubeflow-groups
+  targetRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: ambient-ingressgateway

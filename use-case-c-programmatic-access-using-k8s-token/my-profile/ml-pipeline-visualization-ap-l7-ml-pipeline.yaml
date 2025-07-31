@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: ml-pipeline-visualizationserver-l7-ml-pipeline
+  namespace: my-profile
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/kubeflow/sa/ml-pipeline
+  targetRefs:
+  - name: ml-pipeline-visualizationserver
+    kind: Service
+    group: ""
