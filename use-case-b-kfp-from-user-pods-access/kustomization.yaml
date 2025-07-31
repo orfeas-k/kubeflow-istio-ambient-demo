@@ -1,0 +1,10 @@
+resources:
+  - admission-webhook-ap-allow-all.yaml
+  - katib-controller-ap-allow-all.yaml
+  - kfp-ap-l4-waypoint.yaml
+  - kfp-ap-l4.yaml
+  - kfp-ap-l7.yaml
+  - kfp-profile-controller-ap-metacontroller.yaml
+  - metadata-envoy-ap-l4-ingressgateway.yaml
+  - metadata-envoy-hr.yaml
+  - ml-pipeline-ui-hr.yaml

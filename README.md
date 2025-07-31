@@ -6,7 +6,11 @@ A PoC can be deployed using instructions in the repo. Due to the missing changes
 
 1. clean-setup
 2. use-case-a
-    1. User login flow
-    2. Web application access through the UI
 3. use-case-b
 4. use-case-c
+
+## Use cases
+The following use cases are covered from the migration:
+1. User login flow (use-case-a directory)
+2. Web application access through the UI (use-case-a directory)
+2. KFP components access from a user’s pods (use-case-b directory)

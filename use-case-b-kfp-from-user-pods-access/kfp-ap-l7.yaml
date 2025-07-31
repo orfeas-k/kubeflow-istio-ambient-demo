@@ -1,0 +1,52 @@
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  labels:
+    app.kubernetes.io/component: ml-pipeline
+    app.kubernetes.io/name: kubeflow-pipelines
+    application-crd-id: kubeflow-pipelines
+  name: ml-pipeline-l7
+  namespace: kubeflow
+spec:
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/kubeflow/sa/ml-pipeline
+        - cluster.local/ns/kubeflow/sa/ml-pipeline-ui
+        - cluster.local/ns/kubeflow/sa/ml-pipeline-persistenceagent
+        - cluster.local/ns/kubeflow/sa/ml-pipeline-scheduledworkflow
+        - cluster.local/ns/kubeflow/sa/ml-pipeline-viewer-crd-service-account
+        - cluster.local/ns/kubeflow/sa/kubeflow-pipelines-cache
+  - when:
+    - key: request.headers[kubeflow-userid]
+      notValues:
+      - '*'
+  targetRefs:
+  - kind: Service
+    name: ml-pipeline
+    group: ""
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  labels:
+    app.kubernetes.io/component: ml-pipeline
+    app.kubernetes.io/name: kubeflow-pipelines
+    application-crd-id: kubeflow-pipelines
+  name: ml-pipeline-ui-l7
+  namespace: kubeflow
+spec:
+  rules:
+  - when:
+    - key: request.headers[authorization]
+      values:
+      - '*'
+    - key: request.headers[kubeflow-userid]
+      notValues:
+      - '*'
+  targetRefs:
+  - kind: Service
+    name: ml-pipeline-ui
+    group: ""

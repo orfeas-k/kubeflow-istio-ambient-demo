@@ -1,0 +1,16 @@
+# k8s sends a request to webhook before persisting changes
+# in etcd to confirm if the object should be changed
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  labels:
+    application-crd-id: kubeflow-pipelines
+  name: katib-controller-l4-allow-all
+  namespace: kubeflow
+spec:
+  action: ALLOW
+  rules:
+  - {}
+  selector:
+    matchLabels:
+      katib.kubeflow.org/component: controller

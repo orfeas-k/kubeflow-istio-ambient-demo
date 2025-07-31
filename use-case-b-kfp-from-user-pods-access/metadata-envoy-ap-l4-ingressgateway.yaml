@@ -1,0 +1,17 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  labels:
+    application-crd-id: kubeflow-pipelines
+  name: metadata-envoy-l4-ingressgateway
+  namespace: kubeflow
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/istio-system/sa/ambient-ingressgateway-istio
+  selector:
+    matchLabels:
+      component: metadata-envoy
